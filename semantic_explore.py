@@ -2,9 +2,10 @@ from sentence_transformers import SentenceTransformer, util
 from pathlib import Path
 import json
 
-menus = json.loads(
+data = json.loads(
     Path(__file__).with_name("menus.json").read_text(encoding="utf-8")
 )
+menus = data["halls"]
 
 names = sorted({
     name

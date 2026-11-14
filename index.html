@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Finder · UMass Dining</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./index.html" aria-label="Food Finder home">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>food finder</span>
+      </a>
+      <span class="header-note">UMass Amherst dining commons</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">A better way to pick a dining hall</p>
+      <h1 id="page-title">Find food you’ll actually want to eat.</h1>
+      <p>Save your favorites, explore menus from the four dining commons, and see where a match is served once your team connects the search backend.</p>
+    </section>
+
+    <div class="layout">
+      <aside class="panel favorites-panel" aria-labelledby="favorites-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Your list</p>
+            <h2 id="favorites-title">Favorite foods</h2>
+          </div>
+          <span id="favorite-count" class="count" aria-label="0 favorites">0</span>
+        </div>
+        <form id="favorite-form" class="add-form">
+          <label for="favorite-input">Add a food</label>
+          <div class="input-row">
+            <input id="favorite-input" name="favorite" type="text" placeholder="Try Black Bean Burger" maxlength="100" autocomplete="off" required>
+            <button type="submit" class="button button-small">Add</button>
+          </div>
+        </form>
+        <p id="favorite-empty" class="muted">No favorites yet. Add one to build your list.</p>
+        <ul id="favorite-list" class="favorite-list" aria-label="Saved favorite foods"></ul>
+        <p class="small-note">Saved in this browser. You can remove a food at any time.</p>
+      </aside>
+
+      <div class="main-column">
+        <section class="panel search-panel" aria-labelledby="search-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Coming together</p>
+              <h2 id="search-title">Find my favorites</h2>
+            </div>
+          </div>
+          <p class="muted">Choose a meal and search your saved foods. The matching service is the next backend step.</p>
+          <form id="search-form" class="search-form">
+            <div>
+              <label for="search-meal">Meal</label>
+              <select id="search-meal" name="meal">
+                <option>All meals</option>
+                <option>Breakfast</option>
+                <option>Lunch</option>
+                <option>Dinner</option>
+                <option>Grab n' Go</option>
+                <option>Late Night</option>
+              </select>
+            </div>
+            <button id="search-button" type="submit" class="button" disabled>Find food <span aria-hidden="true">→</span></button>
+          </form>
+          <p id="search-status" class="status" role="status" aria-live="polite"></p>
+          <div id="results" class="results" hidden>
+            <h3>Matches</h3>
+            <div id="result-list"></div>
+          </div>
+        </section>
+
+        <section class="panel browse-panel" aria-labelledby="browse-title">
+          <div class="section-heading browse-heading">
+            <div>
+              <p class="eyebrow">Explore</p>
+              <h2 id="browse-title">Menu snapshot</h2>
+            </div>
+            <span class="snapshot-badge">Saved data</span>
+          </div>
+          <p class="muted">Browse the menu data currently in this project. Check the official menu for current availability.</p>
+          <div class="browse-controls">
+            <div>
+              <label for="hall-select">Dining commons</label>
+              <select id="hall-select" disabled></select>
+            </div>
+            <div>
+              <label for="meal-select">Meal</label>
+              <select id="meal-select" disabled></select>
+            </div>
+          </div>
+          <p id="menu-status" class="status" role="status" aria-live="polite">Loading saved menus…</p>
+          <div id="menu-content" hidden>
+            <div class="menu-meta">
+              <strong id="menu-label"></strong>
+              <a id="official-link" href="#" target="_blank" rel="noopener noreferrer">Official menu <span aria-hidden="true">↗</span></a>
+            </div>
+            <ul id="menu-list" class="menu-list"></ul>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer shell">Independent student project. Menus can change; verify items with UMass Dining.</footer>
+</body>
+</html>
