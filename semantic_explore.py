@@ -24,18 +24,58 @@ records = [
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 vectors = model.encode(names, convert_to_tensor=True)
 
-query = "Veggie Burger"
-query_vector = model.encode([query], convert_to_tensor=True)
-scores = util.cos_sim(query_vector, vectors)[0]
+def find_similar(query, meal) -> list[dict]:
+    query_vector = model.encode([query], convert_to_tensor=True)
+    scores = util.cos_sim(query_vector, vectors)[0]
 
-ranked = sorted(
-    zip(names, scores.tolist()),
-    key=lambda pair: pair[1],
-    reverse=True,
-)
+    meal_keys = {
+        "All meals": None,
+        "Breakfast": "breakfast",
+        "Lunch": "lunch",
+        "Dinner": "dinner",
+        "Late Night": "latenight",
+    }
+    selected_meal = meal_keys[meal]
 
-for name, score in ranked[:10]:
-    locations = [record for record in records if record["name"] == name]
-    print(name, score)
-    for location in locations:
-        print(location["hall"], location["meal"])
+    eligible_names = {
+        record["name"]
+        for record in records
+        if selected_meal is None or record["meal"] == selected_meal
+    }
+
+    ranked = sorted(
+        ((name, score) for name, score in zip(names, scores.tolist())
+        if name in eligible_names),
+        key=lambda pair: pair[1],
+        reverse=True,
+    )
+
+    results = []
+    accepted_names = 0
+    MIN_SIMILARITY = 0.65
+
+    for name, score in ranked:
+        if score < MIN_SIMILARITY:
+            break
+        if name.strip().casefold() == query.strip().casefold():
+            continue
+        if "burger" in query.casefold() and "burger" not in name.casefold():
+            continue
+        locations = [record for record in records if record["name"] == name]
+        for location in locations:
+            if selected_meal is not None and location["meal"] != selected_meal:
+                continue
+            result = location.copy()
+            result["matched_favorite"] = query
+            result["match_type"] = "Similar"
+            result["score"] = score
+            results.append(result)
+        accepted_names += 1
+        if accepted_names >= 10:
+            break
+
+    return results
+
+if __name__ == "__main__":
+    print(find_similar("Veggie Burger", "Lunch")[:2])
+    print(find_similar("Black Bean Burger", "Breakfast")[:2])
