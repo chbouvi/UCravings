@@ -1,22 +1,23 @@
 import json
 
-with open("menus.json", "r") as m:
-    loaded = json.load(m)
+def load_foods():
+    with open("menus.json", "r") as m:
+        loaded = json.load(m)
 
-halls = loaded["halls"]
-print(loaded["date"])
+    halls = loaded["halls"]
 
-foods = []
+    foods = []
 
-for hall in halls:
-    for meal in halls[hall]:
-        for item in halls[hall][meal]:
-            foods.append({"name": item, "hall": hall, "meal": meal})
+    for hall in halls:
+        for meal in halls[hall]:
+            for item in halls[hall][meal]:
+                foods.append({"name": item, "hall": hall, "meal": meal})
+    return foods
 
 def search(query, foods):
     query = query.lower().strip()
     if query == "":
-        return
+        return []
     found = []
     foodset = set()
     for food in foods:
@@ -32,14 +33,29 @@ def search(query, foods):
             if food["name"]==name:
                 print("\t"+food["hall"][0].upper()+food["hall"][1:]+": "+food["meal"][0].upper()+food["meal"][1:])
         print("")
-    return
+    return found
                 
 
-while True:
-    query = input("What are you craving? ")
-    if query.lower().strip() == "end":
-        break
-    search(query, foods)
+if __name__ == "__main__":
+    foods = load_foods()
+    while True:
+        query = input("What are you craving? ")
+        if query.lower().strip() == "end":
+            break
+        results = search(query, foods)
+        if results == []:
+            print("No matches found.")
+        else:
+            foodset = set()
+            for food in results:
+                foodset.add(food["name"])
+            for name in sorted(foodset):
+                print(name)
+                for food in results:
+                    if food["name"]==name:
+                        print("\t"+food["hall"][0].upper()+food["hall"][1:]+": "+food["meal"][0].upper()+food["meal"][1:])
+                print("")
+
 
 
 
