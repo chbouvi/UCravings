@@ -50,6 +50,11 @@ input:focus, select:focus, button:focus-visible, a:focus-visible { outline: 3px 
 .result-card h4 { margin: 0 0 5px; font-size: 1rem; }
 .result-card p { margin: 0; color: #675f64; font-size: .9rem; }
 .result-card a { color: #77223b; font-weight: 650; }
+.result-locations { list-style: none; padding: 0; margin: 12px 0 0; }
+.result-locations li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 12px; border-top: 1px solid #f0ebe9; padding: 10px 0; color: #675f64; font-size: .9rem; }
+.result-locations li:last-child { padding-bottom: 0; }
+.result-locations strong { min-width: 95px; color: #262027; }
+.result-locations a { margin-left: auto; }
 .match-badge { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 999px; color: #692039; background: #f3e8eb; font-size: .72rem; vertical-align: middle; }
 .menu-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid #eee8e5; padding-top: 18px; margin-bottom: 11px; }
 .menu-meta a { color: #77223b; font-size: .87rem; font-weight: 700; text-decoration: none; }

@@ -21,6 +21,7 @@ const favoriteEmpty = document.querySelector('#favorite-empty');
 const favoriteCount = document.querySelector('#favorite-count');
 const searchForm = document.querySelector('#search-form');
 const searchButton = document.querySelector('#search-button');
+const searchMealSelect = document.querySelector('#search-meal');
 const searchStatus = document.querySelector('#search-status');
 const results = document.querySelector('#results');
 const resultList = document.querySelector('#result-list');
@@ -95,6 +96,17 @@ function makeOption(value, text) {
   return option;
 }
 
+function updateSearchMeals() {
+  const available = new Set(Object.values(menus).flatMap(meals => Object.keys(meals)));
+  const previous = searchMealSelect.value;
+  const options = [makeOption('All meals', 'All meals')];
+  for (const meal of Object.keys(mealNames)) {
+    if (available.has(meal)) options.push(makeOption(mealNames[meal], mealNames[meal]));
+  }
+  searchMealSelect.replaceChildren(...options);
+  if ([...searchMealSelect.options].some(option => option.value === previous)) searchMealSelect.value = previous;
+}
+
 function updateMealOptions() {
   const available = menus[hallSelect.value] || {};
   const previous = mealSelect.value;
@@ -139,6 +151,7 @@ async function loadMenus() {
     if (!menus || typeof menus !== 'object' || Array.isArray(menus)) throw new Error('Menu data has no dining halls.');
     hallSelect.replaceChildren(...Object.keys(menus).map(hall => makeOption(hall, hallNames[hall] || hall)));
     hallSelect.disabled = hallSelect.options.length === 0;
+    updateSearchMeals();
     updateMealOptions();
   } catch (error) {
     menuStatus.textContent = `${error.message} Run this page through a local web server.`;
@@ -156,7 +169,28 @@ function renderResults(matches) {
     resultList.append(empty);
     return;
   }
+
+  // One dish can appear at several halls and meals; show it once with its locations.
+  const grouped = new Map();
   matches.forEach(match => {
+    const key = JSON.stringify([match.name, match.match_type, match.matched_favorite]);
+    if (!grouped.has(key)) grouped.set(key, { match, halls: new Map() });
+    const group = grouped.get(key);
+    const hall = String(match.hall || 'Unknown hall');
+    if (!group.halls.has(hall)) group.halls.set(hall, { details: new Set(), sourceUrl: null });
+    const location = group.halls.get(hall);
+    const meal = String(match.meal || 'Meal not listed');
+    const mealLabel = mealNames[meal.toLowerCase()] || meal;
+    location.details.add([mealLabel, match.station].filter(Boolean).join(' · '));
+    if (match.source_url && !location.sourceUrl) {
+      try {
+        const url = new URL(match.source_url);
+        if (url.protocol === 'https:' || url.protocol === 'http:') location.sourceUrl = url.href;
+      } catch { /* Ignore invalid URLs from a backend response. */ }
+    }
+  });
+
+  grouped.forEach(({ match, halls }) => {
     const card = document.createElement('article');
     card.className = 'result-card';
     const heading = document.createElement('h4');
@@ -167,27 +201,32 @@ function renderResults(matches) {
       badge.textContent = match.match_type;
       heading.append(' ', badge);
     }
-    const location = document.createElement('p');
-    location.textContent = [match.hall, match.meal, match.station].filter(Boolean).join(' · ');
-    card.append(heading, location);
+    card.append(heading);
     if (match.matched_favorite) {
       const favorite = document.createElement('p');
       favorite.textContent = `Matched ${match.matched_favorite}`;
       card.append(favorite);
     }
-    if (match.source_url) {
-      try {
-        const url = new URL(match.source_url);
-        if (url.protocol === 'https:' || url.protocol === 'http:') {
-          const link = document.createElement('a');
-          link.href = url.href;
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          link.textContent = 'Official menu ↗';
-          card.append(link);
-        }
-      } catch { /* Ignore invalid URLs from a backend response. */ }
-    }
+    const locations = document.createElement('ul');
+    locations.className = 'result-locations';
+    halls.forEach(({ details, sourceUrl }, hall) => {
+      const item = document.createElement('li');
+      const hallLabel = document.createElement('strong');
+      hallLabel.textContent = hallNames[hall.toLowerCase()] || hall;
+      const meals = document.createElement('span');
+      meals.textContent = [...details].join(', ');
+      item.append(hallLabel, meals);
+      if (sourceUrl) {
+        const link = document.createElement('a');
+        link.href = sourceUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Official menu ↗';
+        item.append(link);
+      }
+      locations.append(item);
+    });
+    card.append(locations);
     resultList.append(card);
   });
 }
@@ -203,7 +242,7 @@ searchForm.addEventListener('submit', async event => {
     const response = await fetch('/api/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ favorites, meal: document.querySelector('#search-meal').value }),
+      body: JSON.stringify({ favorites, meal: searchMealSelect.value }),
     });
     if (response.status === 404 || response.status === 501) {
       throw new Error('Search is not connected yet. You can browse the saved menus below.');

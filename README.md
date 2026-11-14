@@ -1,20 +1,20 @@
-# Food Finder
+# UCravings
 
 Student project for exploring UMass Amherst dining commons menus and finding favorite foods.
 
-## Run the frontend
+## Run the site
 
 From this repository folder:
 
 ```bash
-python3 -m http.server 8000
+python server.py
 ```
 
-Open http://127.0.0.1:8000/. Stop the server with Ctrl+C. No frontend packages are needed.
+Open http://127.0.0.1:8000/. Stop the server with Ctrl+C. The active Python environment needs Flask installed.
 
 The page reads the repository's `menus.json` and lets you browse its saved menu snapshot by dining hall and meal. It displays the file's saved date but does not claim the menu is currently being served. Favorites are stored in browser Local Storage under `foodfinder-favorites-v2` and can be added or removed on the page.
 
-## Backend handoff
+## Search API
 
 The frontend does not compute food matches. Clicking **Find food** sends a JSON request to `POST /api/search`:
 
@@ -40,4 +40,4 @@ It expects a JSON response shaped like:
 }
 ```
 
-`name`, `hall`, and `meal` are the minimum fields the result card displays. The other fields are optional. The example shows the interface shape; it is not a live menu claim. Until you implement an HTTP endpoint, the page says search is not connected. `scraper.py` and `search.py` are your team's backend work and are not called by this static page.
+`name`, `hall`, and `meal` are the minimum fields the result card displays. The other fields are optional. The example shows the interface shape; it is not a live menu claim. `server.py` returns exact-name matches and similar matches from `semantic_explore.py`, using the saved menu.
