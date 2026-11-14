@@ -10,7 +10,6 @@ dining_halls = ["https://www.umassdining.com/locations-menus/berkshire/menu",
 
 current_menu = {}
 
-
 for hall in dining_halls:
     meals = {}
     response = requests.get(hall)
