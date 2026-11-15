@@ -11,7 +11,7 @@
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./index.html" aria-label="UCravings home">
-        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span class="brand-mark" aria-hidden="true">U</span>
         <span>UCravings</span>
       </a>
       <span class="header-note">UMass Amherst dining commons</span>
@@ -20,9 +20,9 @@
 
   <main class="shell">
     <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow">A better way to pick a dining hall</p>
-      <h1 id="page-title">Find food you’ll actually want to eat.</h1>
-      <p>Save your favorites, explore menus from the four dining commons, and find where your favorite foods appear in the saved menu.</p>
+      <p class="eyebrow">UMass dining, made simpler</p>
+      <h1 id="page-title">Your favorites, across the commons.</h1>
+      <p>Save the dishes you like. Check where they appear in the saved menus, along with similar suggestions.</p>
     </section>
 
     <div class="layout">
@@ -50,11 +50,12 @@
         <section class="panel search-panel" aria-labelledby="search-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Your matches</p>
-              <h2 id="search-title">Find my favorites</h2>
+              <p class="eyebrow">Across the commons</p>
+              <h2 id="search-title">Search the menus</h2>
             </div>
+            <span id="search-date" class="snapshot-badge">Saved menu</span>
           </div>
-          <p class="muted">Choose a meal to see where your saved favorites are listed.</p>
+          <p class="muted">Pick a meal to find your favorites and related dishes in the saved menu.</p>
           <form id="search-form" class="search-form">
             <div>
               <label for="search-meal">Meal</label>
@@ -66,7 +67,6 @@
           </form>
           <p id="search-status" class="status" role="status" aria-live="polite"></p>
           <div id="results" class="results" hidden>
-            <h3>Matches</h3>
             <div id="result-list"></div>
           </div>
         </section>
