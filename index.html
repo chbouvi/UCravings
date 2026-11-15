@@ -11,18 +11,24 @@
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./index.html" aria-label="UCravings home">
-        <span class="brand-mark" aria-hidden="true">U</span>
-        <span>UCravings</span>
+        <span class="brand-name">UCravings<span class="brand-period" aria-hidden="true">.</span></span>
+        <span class="brand-caption">at UMass Amherst</span>
       </a>
-      <span class="header-note">UMass Amherst - Dining commons</span>
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="#search-title">Find food</a>
+        <a href="#browse-title">Menus</a>
+      </nav>
     </div>
   </header>
 
   <main class="shell">
     <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow">UMass dining, made simpler</p>
-      <h1 id="page-title">Your favorites, across the commons.</h1>
-      <p>Save the dishes you like. Check where they appear in the saved menus, along with similar suggestions.</p>
+      <div>
+        <p class="eyebrow">UMass dining, made simpler</p>
+        <h1 id="page-title">Your favorites, across the commons.</h1>
+        <p>Save the dishes you like. Check where they appear in the saved menus, along with similar suggestions.</p>
+      </div>
+      <img class="library-art" src="./library.svg" alt="Illustration of the W. E. B. Du Bois Library">
     </section>
 
     <div class="layout">
@@ -37,7 +43,7 @@
         <form id="favorite-form" class="add-form">
           <label for="favorite-input">Add a food</label>
           <div class="input-row">
-            <input id="favorite-input" name="favorite" type="text" placeholder="Ex: Black Bean Burger" maxlength="100" autocomplete="off" required>
+            <input id="favorite-input" name="favorite" type="text" placeholder="Try Black Bean Burger" maxlength="100" autocomplete="off" required>
             <button type="submit" class="button button-small">Add</button>
           </div>
         </form>
@@ -103,6 +109,6 @@
     </div>
   </main>
 
-  <footer class="site-footer shell">This is an independent student project. Menus can change, verify items with UMass Dining.</footer>
+  <footer class="site-footer shell">Independent student project. Menus can change; verify items with UMass Dining.</footer>
 </body>
 </html>
