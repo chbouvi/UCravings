@@ -22,6 +22,7 @@ const favoriteCount = document.querySelector('#favorite-count');
 const searchForm = document.querySelector('#search-form');
 const searchButton = document.querySelector('#search-button');
 const searchMealSelect = document.querySelector('#search-meal');
+const searchDate = document.querySelector('#search-date');
 const searchStatus = document.querySelector('#search-status');
 const results = document.querySelector('#results');
 const resultList = document.querySelector('#result-list');
@@ -149,6 +150,12 @@ async function loadMenus() {
     menus = data.halls || data;
     snapshotDate = typeof data.date === 'string' ? data.date : null;
     if (!menus || typeof menus !== 'object' || Array.isArray(menus)) throw new Error('Menu data has no dining halls.');
+    if (snapshotDate) {
+      const date = new Date(`${snapshotDate}T12:00:00`);
+      searchDate.textContent = Number.isNaN(date.getTime())
+        ? `Saved ${snapshotDate}`
+        : `Saved ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+    }
     hallSelect.replaceChildren(...Object.keys(menus).map(hall => makeOption(hall, hallNames[hall] || hall)));
     hallSelect.disabled = hallSelect.options.length === 0;
     updateSearchMeals();
@@ -190,21 +197,18 @@ function renderResults(matches) {
     }
   });
 
+  const exactCards = document.createElement('div');
+  const similarCards = document.createElement('div');
   grouped.forEach(({ match, halls }) => {
     const card = document.createElement('article');
     card.className = 'result-card';
     const heading = document.createElement('h4');
     heading.textContent = match.name || 'Unnamed item';
-    if (match.match_type) {
-      const badge = document.createElement('span');
-      badge.className = 'match-badge';
-      badge.textContent = match.match_type;
-      heading.append(' ', badge);
-    }
     card.append(heading);
-    if (match.matched_favorite) {
+    const isSimilar = String(match.match_type).toLowerCase() === 'similar';
+    if (isSimilar && match.matched_favorite) {
       const favorite = document.createElement('p');
-      favorite.textContent = `Matched ${match.matched_favorite}`;
+      favorite.textContent = `Similar to ${match.matched_favorite}`;
       card.append(favorite);
     }
     const locations = document.createElement('ul');
@@ -227,8 +231,18 @@ function renderResults(matches) {
       locations.append(item);
     });
     card.append(locations);
-    resultList.append(card);
+    (isSimilar ? similarCards : exactCards).append(card);
   });
+
+  for (const [title, cards] of [['Your favorites', exactCards], ['Similar suggestions', similarCards]]) {
+    if (!cards.childElementCount) continue;
+    const section = document.createElement('section');
+    section.className = 'result-section';
+    const heading = document.createElement('h3');
+    heading.textContent = `${title} (${cards.childElementCount})`;
+    section.append(heading, cards);
+    resultList.append(section);
+  }
 }
 
 searchForm.addEventListener('submit', async event => {

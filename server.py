@@ -12,7 +12,7 @@ def home():
 
 @app.get("/<filename>")
 def frontend_file(filename):
-    if filename not in {"index.html", "app.js", "styles.css", "menus.json"}:
+    if filename not in {"index.html", "app.js", "styles.css", "menus.json", "food-background.png"}:
         return "Not found", 404
     return send_from_directory(app.root_path, filename)
 
