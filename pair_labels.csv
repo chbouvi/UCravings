@@ -1,0 +1,121 @@
+favorite,candidate,cosine_score,good_match
+Veggie Burger,Black Bean Burger,0.703,1
+Veggie Burger,Burger Bar,0.644,0
+Veggie Burger,Halal Burger Patty,0.628,0
+Veggie Burger,Halal SPARE Beef Burger,0.557,0
+Veggie Burger,Vegetable Pizza,0.516,0
+Veggie Burger,Spicy Lentil Veggie Soup,0.514,0
+Veggie Burger,Chicken Gravy,0.497,0
+Veggie Burger,Shredded Lettuce,0.493,0
+Veggie Burger,French Fries,0.491,0
+Veggie Burger,Deli Beef,0.484,0
+Black Bean Burger,Black Beans,0.762,0
+Black Bean Burger,Beans Black,0.756,0
+Black Bean Burger,Black Bean Frijoles,0.657,0
+Black Bean Burger,Burger Bar,0.64,0
+Black Bean Burger,Halal Burger Patty,0.608,0
+Black Bean Burger,Black Bean and Avocado Salad,0.582,0
+Black Bean Burger,Pinto Beans,0.573,0
+Black Bean Burger,Kidney Beans,0.543,0
+Black Bean Burger,Red Bean Soup,0.534,0
+Black Bean Burger,Halal SPARE Beef Burger,0.524,0
+Cheesecake,Cheese Pizza,0.6,0
+Cheesecake,Cheddar Cheese,0.588,0
+Cheesecake,American Cheese,0.585,0
+Cheesecake,Orange Cake w/Cream Cheese Frosting,0.583,0
+Cheesecake,Shredded Cheddar Cheese,0.572,0
+Cheesecake,Provolone Cheese,0.506,0
+Cheesecake,Shredded Parmesan Cheese,0.489,0
+Cheesecake,Korean Seafood Pancake,0.485,0
+Cheesecake,Grilled Cheese Sandwich,0.485,0
+Cheesecake,Mini Cheese Danish,0.468,0
+Chicken Parmesan,Chimichurri Chicken,0.685,0
+Chicken Parmesan,Greek Chicken,0.662,0
+Chicken Parmesan,Eggplant Parmesan,0.654,1
+Chicken Parmesan,Chicken Gravy,0.642,0
+Chicken Parmesan,Shredded Parmesan Cheese,0.635,0
+Chicken Parmesan,Chicken Salad,0.613,0
+Chicken Parmesan,Chicken Congee,0.559,0
+Chicken Parmesan,Fresh Grated Parmesan Cheese,0.552,0
+Chicken Parmesan,Teriyaki Chicken Roll,0.536,0
+Chicken Parmesan,Cajun Chicken Thigh,0.535,0
+Cheese Pizza,Vegetable Pizza,0.759,1
+Cheese Pizza,Pepperoni Pizza,0.722,1
+Cheese Pizza,Cheddar Cheese,0.67,0
+Cheese Pizza,Provolone Cheese,0.637,0
+Cheese Pizza,American Cheese,0.633,0
+Cheese Pizza,Shredded Cheddar Cheese,0.607,0
+Cheese Pizza,Grilled Cheese Sandwich,0.578,0
+Cheese Pizza,Mini Cheese Danish,0.552,0
+Cheese Pizza,Heirloom Tomato Pesto Pizza,0.551,1
+Cheese Pizza,Shredded Parmesan Cheese,0.533,0
+Tomato Soup,Red Bean Soup,0.619,0
+Tomato Soup,"Chicken, Pork & Shrimp Wonton Soup",0.611,0
+Tomato Soup,Grape Tomatoes,0.602,0
+Tomato Soup,Roasted Tomatoes,0.588,0
+Tomato Soup,Spicy Lentil Veggie Soup,0.571,0
+Tomato Soup,Diced Tomatoes,0.563,0
+Tomato Soup,Corn & Tomatoes,0.541,0
+Tomato Soup,Tom Kha Gai (Coconut Lemongrass Soup),0.524,0
+Tomato Soup,Vegetable Pizza,0.52,0
+Tomato Soup,Pepperoni Pizza,0.517,0
+Caesar Salad,Chicken Salad,0.743,0
+Caesar Salad,Chicken Caesar Wrap,0.653,1
+Caesar Salad,Tuna Salad,0.607,0
+Caesar Salad,Tomato Cucumber Salad,0.599,0
+Caesar Salad,Italian Tuna Salad,0.579,0
+Caesar Salad,Spicy Mango Salad,0.577,0
+Caesar Salad,Watermelon Curry Salad,0.574,0
+Caesar Salad,"Roasted Pepper, Olive & Feta Salad",0.562,0
+Caesar Salad,Tomato & Cucumber Salad Jain,0.556,0
+Caesar Salad,Romaine Lettuce,0.536,0
+Mac and Cheese,Homemade Macaroni & Cheese,0.726,1
+Mac and Cheese,Buffalo Chicken for Mac & Cheese,0.666,0
+Mac and Cheese,Cheddar Cheese,0.623,0
+Mac and Cheese,American Cheese,0.607,0
+Mac and Cheese,Shredded Cheddar Cheese,0.557,0
+Mac and Cheese,Cheese Pizza,0.548,0
+Mac and Cheese,Provolone Cheese,0.535,0
+Mac and Cheese,Grilled Cheese Sandwich,0.513,0
+Mac and Cheese,Shredded Parmesan Cheese,0.5,0
+Mac and Cheese,Fat Free Cottage Cheese,0.493,0
+Grilled Salmon,Grilled Chicken Breast,0.603,0
+Grilled Salmon,Teriyaki Salmon,0.593,1
+Grilled Salmon,Grilled Cheese Sandwich,0.573,0
+Grilled Salmon,Crispy Fish Sandwich,0.571,0
+Grilled Salmon,Grilled Chicken Thighs,0.538,0
+Grilled Salmon,Crunchy Baked White Fish,0.526,0
+Grilled Salmon,Blackened Fish of the Day,0.51,0
+Grilled Salmon,"Hot Pot (Chicken, Beef, Pork, Fish, Shellfish)",0.507,0
+Grilled Salmon,Tuna Salad,0.499,0
+Grilled Salmon,Savory Baked Chicken,0.475,0
+Fried Rice,Yellow Rice,0.741,0
+Fried Rice,Jain Vegetable Fried Rice,0.733,1
+Fried Rice,Plain Sushi Rice,0.705,0
+Fried Rice,Peruvian Rice,0.667,0
+Fried Rice,Poblano Rice,0.644,0
+Fried Rice,Brown Rice Pilaf,0.637,0
+Fried Rice,Rice Pilaf,0.629,0
+Fried Rice,Colombian Coconut Rice,0.628,0
+Fried Rice,Jasmine Rice,0.618,0
+Fried Rice,Rice in Lotus Leaf w/Shrimp (Walnuts/Peanuts),0.604,0
+Chocolate Cake,Orange Cake w/Cream Cheese Frosting,0.66,0
+Chocolate Cake,Chicken Pot Pie,0.436,0
+Chocolate Cake,Scrambled Eggs,0.428,0
+Chocolate Cake,Pita Bread,0.421,0
+Chocolate Cake,Sour Cream,0.421,0
+Chocolate Cake,Savory Baked Chicken,0.415,0
+Chocolate Cake,Korean Seafood Pancake,0.398,0
+Chocolate Cake,Orecchiette Pasta,0.388,0
+Chocolate Cake,Golden Raisins,0.387,0
+Chocolate Cake,Colombian Coconut Rice,0.379,0
+Tacos,Taco Shells,0.686,0
+Tacos,Filling for Beef Tacos,0.641,0
+Tacos,Chicken Taco Filling,0.61,0
+Tacos,Spare Beef Taco Filling,0.534,0
+Tacos,Green Tahini Sauce,0.485,0
+Tacos,Mexican Potato Casserole,0.481,0
+Tacos,Chipotle Pork Burrito Bowl,0.477,0
+Tacos,GF Pork Carnitas Nacho Bar,0.458,0
+Tacos,Chunky Salsa,0.448,0
+Tacos,French Fries,0.447,0
