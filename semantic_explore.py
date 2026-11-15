@@ -21,7 +21,15 @@ records = [
     for name in dishes
 ]
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+try:
+    model = SentenceTransformer(
+        "sentence-transformers/all-MiniLM-L6-v2", local_files_only=True
+    )
+except OSError:
+    raise RuntimeError(
+        "The food similarity model needs to be downloaded once. "
+        "Follow the model step in README.md, then try again."
+    ) from None
 vectors = model.encode(names, convert_to_tensor=True)
 
 def find_similar(query, meal) -> list[dict]:

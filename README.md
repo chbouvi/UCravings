@@ -1,43 +1,43 @@
 # UCravings
 
-Student project for exploring UMass Amherst dining commons menus and finding favorite foods.
+Find foods you like in saved menus from the four UMass Amherst dining commons.
 
-## Run the site
+## Run it
 
-From this repository folder:
+In the project folder, set up Python:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+The food similarity model is a separate download. Run this once on each computer while you have internet access:
+
+```bash
+python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+```
+
+Start the site:
 
 ```bash
 python server.py
 ```
 
-Open http://127.0.0.1:8000/. Stop the server with Ctrl+C. The active Python environment needs Flask installed.
+Open http://127.0.0.1:8000/. Press Ctrl+C to stop it. The server uses the downloaded model without checking the internet. Restart it after changing Python code or updating `menus.json`.
 
-The page reads the repository's `menus.json` and lets you browse its saved menu snapshot by dining hall and meal. It displays the file's saved date but does not claim the menu is currently being served. Favorites are stored in browser Local Storage under `foodfinder-favorites-v2` and can be added or removed on the page.
+## Menus and favorites
 
-## Search API
+`scraper.py` saves the dining hall menus to `menus.json`. Run `python scraper.py` to refresh the file, then check that it found items for all four halls. The site shows the date of that saved menu; it does not update menus on its own.
 
-The frontend does not compute food matches. Clicking **Find food** sends a JSON request to `POST /api/search`:
+Favorites are saved in your browser's Local Storage under `foodfinder-favorites-v2`.
 
-```json
-{ "favorites": ["Black Bean Burger", "Cheesecake"], "meal": "Lunch" }
-```
+## Search request
 
-It expects a JSON response shaped like:
+Clicking **Find food** sends a request to `POST /api/search`:
 
 ```json
-{
-  "matches": [
-    {
-      "name": "Black Bean Burger",
-      "hall": "Berkshire",
-      "meal": "Lunch",
-      "station": "Grill Station",
-      "matched_favorite": "Black Bean Burger",
-      "match_type": "Exact",
-      "source_url": "https://www.umassdining.com/locations-menus/berkshire/menu"
-    }
-  ]
-}
+{"favorites": ["Veggie Burger"], "meal": "Lunch"}
 ```
 
-`name`, `hall`, and `meal` are the minimum fields the result card displays. The other fields are optional. The example shows the interface shape; it is not a live menu claim. `server.py` returns exact-name matches and similar matches from `semantic_explore.py`, using the saved menu.
+The server returns `{"matches": [...]}`. Each match has a dish name, hall, meal, and either `Exact` or `Similar` as its match type. Similar matches also say which favorite they matched. The site groups repeated dishes by hall and meal before displaying them.
